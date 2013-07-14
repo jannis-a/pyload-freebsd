@@ -40,7 +40,8 @@ RUN_DEPENDS+=	spidermonkey:${PORTSDIR}/lang/spidermonkey185
 .endif
 
 .if ${PORT_OPTIONS:MOPENSSL}
-USE_OPENSSL=yes
+USE_OPENSSL=	yes
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}py-openssl:${PORTSDIR}/security/py-openssl
 .endif
 
 .if ${PORT_OPTIONS:MTESSERACT}
