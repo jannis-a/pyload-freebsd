@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# $FreeBSD$
+#
+# PROVIDE:	pyload
+# REQUIRE:	LOGIN
+# KEYWORD:	shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+#  pyload_enable="YES"
+#  # optional
+#  pyload_flags="--daemon"
+#  pyload_config="%%PREFIX%%/etc/pyload"
+#  pyload_pid="/var/run/pyload.pid
+
+. "/etc/rc.subr"
+
+name=pyload
+rcvar=`set_rcvar`
+
+load_rc_config $name
+
+: ${pyload_enable:="NO"}
+: ${pyload_flags:="--daemon"}
+: ${pyload_config:="%%PREFIX%%/etc/${name}"}
+: ${pyload_pid:="/var/run/${name}.pid"}
+
+pidfile=${pyload_pid}
+command_interpreter=%%PREFIX%%/bin/python
+command=%%PREFIX%%/www/${name}/pyLoadCore.py
+command_args="--pidfile=${pidfile} --configdir=${pyload_config}"
+command_full="${command_interpreter} ${command} ${command_args}"
+
+start_precmd="${name}_prestart"
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+pyload_prestart() {
+	if ! -f ${pyload_config}/${name}.conf; then
+		${command_full} --setup
+	fi		
+}
+
+pyload_start() {
+	echo "Starting ${name}."
+	${command_full} ${pyload_flags} > /dev/null 2>&1
+}
+
+pyload_stop() {
+	echo "Stopping ${name}."
+	${command_full} --quit > /dev/null 2>&1
+}
+
+run_rc_command "$1"
