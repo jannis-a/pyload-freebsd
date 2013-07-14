@@ -38,7 +38,7 @@ start_cmd="${name}_start"
 stop_cmd="${name}_stop"
 
 pyload_prestart() {
-	if ! -f ${pyload_config}/${name}.conf; then
+	if [ ! -f ${pyload_config}/${name}.conf ]; then
 		${command_full} --setup
 	fi		
 }
