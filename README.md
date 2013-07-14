@@ -21,8 +21,8 @@ A rc.d script for auto starting pyLoad is also included.
   * cd pyload && make install clean
 3. Enable and start pyLoad (setup will be executed if there's no pyload.conf):
   * echo 'pyload_enable="YES"' >> /etc/rc.conf
-  * Optional settings (add to /etc/rc.conf):
-    * pyload_config="/usr/local/etc/pyload"
-    * pyload_flags="--daemon"
-    * pyload_pid="/var/run/pyload.pid"
   * service pyload start
+4. Optional settings (add to /etc/rc.conf):
+  * pyload_config="/usr/local/etc/pyload"
+  * pyload_flags="--daemon"
+  * pyload_pid="/var/run/pyload.pid"
