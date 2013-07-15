@@ -22,12 +22,12 @@ RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}django:${PORTSDIR}/www/py-django \
 		${PYTHON_PKGNAMEPREFIX}pycrypto:${PORTSDIR}/security/py-pycrypto \
 		${PYTHON_PKGNAMEPREFIX}pycurl:${PORTSDIR}/ftp/py-curl
 
-OPTIONS_DEFINE=	GUI JSENGINE OPENSSL TESSERACT UNRAR
-OPTIONS_DEFAULT=UNRAR
+OPTIONS_DEFINE=	GUI JSENGINE OPENSSL TESSERACT UNPACK
+OPTIONS_DEFAULT=JSENGINE TESSERACT UNPACK
 GUI_DESC=	Install dependencies for GUI (will be obsolete)
 JSENGINE_DESC=	Install spidermonkey JS engine for Click'n'load
 TESSERACT_DESC=	Image recognition provided by gocr and tesseract
-UNRAR_DESC=	Install unrar to unpack downloads
+UNPACK_DESC=	Install unrar and unzip to unpack downloads
 
 .include <bsd.port.options.mk>
 
@@ -36,7 +36,7 @@ RUN_DEPENDS+=	py-qt:${PORTSDIR}/x11-toolkits/py-qt
 .endif
 
 .if ${PORT_OPTIONS:MJSENGINE}
-RUN_DEPENDS+=	spidermonkey:${PORTSDIR}/lang/spidermonkey185
+RUN_DEPENDS+=	spidermonkey:${PORTSDIR}/lang/spidermonkey17
 .endif
 
 .if ${PORT_OPTIONS:MOPENSSL}
@@ -45,13 +45,15 @@ RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}py-openssl:${PORTSDIR}/security/py-openssl
 .endif
 
 .if ${PORT_OPTIONS:MTESSERACT}
+TESSERACT_LANGS=eng
 RUN_DEPENDS+=	gocr:${PORTSDIR}/graphics/gocr \
 		tesseract:${PORTSDIR}/graphics/tesseract \
 		tesseract-data:${PORTSDIR}/graphics/tesseract-data
 .endif
 
-.if ${PORT_OPTIONS:MUNRAR}
+.if ${PORT_OPTIONS:MUNPACK}
 RUN_DEPENDS+=	unrar:${PORTSDIR}/archivers/unrar
+		unzip:${PORTSDIR}/archivers/unzip
 .endif
 
 NO_BUILD=	yes
