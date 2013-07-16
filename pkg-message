@@ -1,7 +1,0 @@
-================================================================================
-To enable pyLoad, add pyload_enable="YES" in your /etc/rc.conf.
-
-If there's no configuration, the setup will be called first:
-	service pyload start
-
-================================================================================

@@ -2,16 +2,33 @@ pyload-freebsd
 ==============
 
 This is a FreeBSD port for the current stable version (0.4.9) of pyLoad.
-I made this for my FreeNAS Jail.
+I made this for my FreeNAS Jail. A rc.d script for auto starting pyLoad is included.
 
-It has options for:
+The following ports will be installed:
+* database/py-sqlite3
+* ftp/py-curl
+* graphics/py-imaging
+* security/py-pycrypto
+* www/py-django
+
+Optional:
 * SSL support
-* Unpacking downloads (unrar and unzip)
-* JS-Enginge support (not sure if really working, please give feedback)
-* GUI support (will be dropped with the next pyLoad version)
+  * security/openssl (OpenSSL should already be available on FreeBSD)
+  * security/py-openssl
+* Unpacking downloads
+  * archivers/unrar
+  * archivers/unzip
+* JS-Enginge for Click'n'Load
+  * lang/spidermonkey17
+* Captcha solving
+  * graphics/gocr
+  * graphics/tesseract
+  * graphics/tesseract-data
 
-The pyLoad executable scripts (cli, core, gui) will be symlinked to /usr/local/bin.
-A rc.d script for auto starting pyLoad is also included.
+There will be the following symlinks in /usr/local/bin:
+* pyload     (pyLoadCore.py)
+* pyload-cli (pyLoadCli.py)
+* pyload-gui (pyLoadGui.py)
 
 # Installation
 1. Make sure you have the ports tree, if not run (will take a while):

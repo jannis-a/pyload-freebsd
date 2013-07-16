@@ -16,64 +16,59 @@ GH_PROJECT=	pyload
 GH_COMMIT=	6632445
 GH_TAGNAME=	stable
 
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}django:${PORTSDIR}/www/py-django \
-		${PYTHON_PKGNAMEPREFIX}beaker:${PORTSDIR}/www/py-beaker \
-		${PYTHON_PKGNAMEPREFIX}imaging:${PORTSDIR}/graphics/py-imaging \
-		${PYTHON_PKGNAMEPREFIX}pycrypto:${PORTSDIR}/security/py-pycrypto \
-		${PYTHON_PKGNAMEPREFIX}pycurl:${PORTSDIR}/ftp/py-curl
+NO_BUILD=	yes
+USE_PYTHON=	yes
+USE_RC_SUBR=	pyload
+TESSERACT_LANGS=eng
 
-OPTIONS_DEFINE=	GUI JSENGINE OPENSSL TESSERACT UNPACK
+SUB_FILES=	pkg-message
+WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
+BINARY_DIR=	${PREFIX}/bin
+INSTALL_DIR=	${PREFIX}/www/${PORTNAME}
+
+RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3 \
+		${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
+		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django \
+		${PYTHON_SITELIBDIR}/PIL:${PORTSDIR}/graphics/py-imaging \
+		${PYTHON_SITELIBDIR}/Crypto:${PORTSDIR}/security/py-pycrypto
+
+OPTIONS_DEFINE=	JSENGINE OPENSSL TESSERACT UNPACK
 OPTIONS_DEFAULT=JSENGINE TESSERACT UNPACK
-GUI_DESC=	Install dependencies for GUI (will be obsolete)
 JSENGINE_DESC=	Install spidermonkey JS engine for Click'n'load
 TESSERACT_DESC=	Image recognition provided by gocr and tesseract
 UNPACK_DESC=	Install unrar and unzip to unpack downloads
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MGUI}
-RUN_DEPENDS+=	py-qt:${PORTSDIR}/x11-toolkits/py-qt
-.endif
-
 .if ${PORT_OPTIONS:MJSENGINE}
-RUN_DEPENDS+=	spidermonkey:${PORTSDIR}/lang/spidermonkey17
+RUN_DEPENDS+=	spidermonkey17>0:${PORTSDIR}/lang/spidermonkey17
 .endif
 
 .if ${PORT_OPTIONS:MOPENSSL}
 USE_OPENSSL=	yes
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}py-openssl:${PORTSDIR}/security/py-openssl
+RUN_DEPENDS+=	${PYTHON_SITELIBDIR}/OpenSSL:${PORTSDIR}/security/py-openssl
 .endif
 
 .if ${PORT_OPTIONS:MTESSERACT}
-TESSERACT_LANGS=eng
-RUN_DEPENDS+=	gocr:${PORTSDIR}/graphics/gocr \
-		tesseract:${PORTSDIR}/graphics/tesseract \
-		tesseract-data:${PORTSDIR}/graphics/tesseract-data
+RUN_DEPENDS+=	gocr>0:${PORTSDIR}/graphics/gocr \
+		tesseract>0:${PORTSDIR}/graphics/tesseract \
+		tesseract-data>0:${PORTSDIR}/graphics/tesseract-data
 .endif
 
 .if ${PORT_OPTIONS:MUNPACK}
-RUN_DEPENDS+=	unrar:${PORTSDIR}/archivers/unrar
-		unzip:${PORTSDIR}/archivers/unzip
+RUN_DEPENDS+=	unrar>0:${PORTSDIR}/archivers/unrar \
+		unzip>0:${PORTSDIR}/archivers/unzip
 .endif
-
-NO_BUILD=	yes
-USE_PYTHON=	yes
-USE_RC_SUBR=	pyload
-
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
-BINARY_DIR=	${PREFIX}/bin
-INSTALL_DIR=	${PREFIX}/www/${PORTNAME}
-INSTALL_SCRIPTS=pyLoadCli.py pyLoadCore.py pyLoadGui.py
 
 do-install:
 	${MKDIR} ${INSTALL_DIR}
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${INSTALL_DIR})
-.for FILE in ${INSTALL_SCRIPTS}
-	${LN} -fs ${INSTALL_DIR}/${FILE} ${BINARY_DIR}/${FILE}
-	${CHMOD} +x ${BINARY_DIR}/${FILE}
-.endfor
+	${LN} -fs ${INSTALL_DIR}/pyLoadCore.py ${BINARY_DIR}/pyload
+	${LN} -fs ${INSTALL_DIR}/pyLoadCli.py ${BINARY_DIR}/pyload-cli
+	${LN} -fs ${INSTALL_DIR}/pyLoadGui.py ${BINARY_DIR}/pyload-gui
+	(cd ${BINARY_DIR} && ${CHMOD} +x pyload pyload-cli pyload-gui)
 
 post-install:
-	@${CAT} ${PKGMESSAGE}
+	@${CAT} ${WRKDIR}/pkg-message
 
 .include <bsd.port.mk>
