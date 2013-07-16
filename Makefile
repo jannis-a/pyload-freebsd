@@ -10,8 +10,7 @@ DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-0-g${GH_COMMIT}
 MAINTAINER=	mrhanky@unterschicht.tv
 COMMENT=	A lightweight one-click download manager written in python
 
-RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3 \
-		${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
+RUN_DEPENDS=	${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
 		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django \
 		${PYTHON_SITELIBDIR}/PIL:${PORTSDIR}/graphics/py-imaging \
 		${PYTHON_SITELIBDIR}/Crypto:${PORTSDIR}/security/py-pycrypto
@@ -23,14 +22,15 @@ GH_COMMIT=	6632445
 GH_TAGNAME=	stable
 
 NO_BUILD=	yes
+USE_GETTEXT=	yes
 USE_PYTHON=	yes
+USE_SQLITE=	yes
 USE_RC_SUBR=	pyload
-TESSERACT_LANGS=eng
+SUB_FILES=	pkg-message
 
-SUB_FILES=pkg-message
-WRKSRC=${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
-BINARY_DIR=${PREFIX}/bin
-INSTALL_DIR=${PREFIX}/www/${PORTNAME}
+WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
+BINARY_DIR=	${PREFIX}/bin
+INSTALL_DIR=	${PREFIX}/www/${PORTNAME}
 
 OPTIONS_DEFINE=	JSENGINE OPENSSL TESSERACT UNPACK
 OPTIONS_DEFAULT=JSENGINE TESSERACT UNPACK
@@ -50,6 +50,7 @@ RUN_DEPENDS+=	${PYTHON_SITELIBDIR}/OpenSSL:${PORTSDIR}/security/py-openssl
 .endif
 
 .if ${PORT_OPTIONS:MTESSERACT}
+TESSERACT_LANGS=eng
 RUN_DEPENDS+=	gocr>0:${PORTSDIR}/graphics/gocr \
 		tesseract>0:${PORTSDIR}/graphics/tesseract \
 		tesseract-data>0:${PORTSDIR}/graphics/tesseract-data

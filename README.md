@@ -8,6 +8,7 @@ The following ports will be installed:
 * database/py-sqlite3
 * ftp/py-curl
 * graphics/py-imaging
+* lang/python
 * security/py-pycrypto
 * www/py-django
 
