@@ -8,7 +8,13 @@ MASTER_SITES=	GH
 DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-0-g${GH_COMMIT}
 
 MAINTAINER=	mrhanky@unterschicht.tv
-COMMENT=	pyLoad is a one-click download manager written in python
+COMMENT=	A lightweight one-click download manager written in python
+
+RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3 \
+		${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
+		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django \
+		${PYTHON_SITELIBDIR}/PIL:${PORTSDIR}/graphics/py-imaging \
+		${PYTHON_SITELIBDIR}/Crypto:${PORTSDIR}/security/py-pycrypto
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	pyload
@@ -21,16 +27,10 @@ USE_PYTHON=	yes
 USE_RC_SUBR=	pyload
 TESSERACT_LANGS=eng
 
-SUB_FILES=	pkg-message
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
-BINARY_DIR=	${PREFIX}/bin
-INSTALL_DIR=	${PREFIX}/www/${PORTNAME}
-
-RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3 \
-		${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
-		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django \
-		${PYTHON_SITELIBDIR}/PIL:${PORTSDIR}/graphics/py-imaging \
-		${PYTHON_SITELIBDIR}/Crypto:${PORTSDIR}/security/py-pycrypto
+SUB_FILES=pkg-message
+WRKSRC=${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
+BINARY_DIR=${PREFIX}/bin
+INSTALL_DIR=${PREFIX}/www/${PORTNAME}
 
 OPTIONS_DEFINE=	JSENGINE OPENSSL TESSERACT UNPACK
 OPTIONS_DEFAULT=JSENGINE TESSERACT UNPACK
