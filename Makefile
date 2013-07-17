@@ -10,10 +10,12 @@ DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-0-g${GH_COMMIT}
 MAINTAINER=	mrhanky@unterschicht.tv
 COMMENT=	A lightweight one-click download manager written in python
 
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
+RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/database/py-sqlite3 \
+		${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
 		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django \
 		${PYTHON_SITELIBDIR}/PIL:${PORTSDIR}/graphics/py-imaging \
-		${PYTHON_SITELIBDIR}/Crypto:${PORTSDIR}/security/py-pycrypto
+		${PYTHON_SITELIBDIR}/Crypto:${PORTSDIR}/security/py-pycrypto \
+		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	pyload
@@ -24,13 +26,13 @@ GH_TAGNAME=	stable
 NO_BUILD=	yes
 USE_GETTEXT=	yes
 USE_PYTHON=	yes
-USE_SQLITE=	yes
+USE_SQLITE3=	yes
+
 USE_RC_SUBR=	pyload
 SUB_FILES=	pkg-message
-
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
 BINARY_DIR=	${PREFIX}/bin
 INSTALL_DIR=	${PREFIX}/www/${PORTNAME}
+WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}
 
 OPTIONS_DEFINE=	JSENGINE OPENSSL TESSERACT UNPACK
 OPTIONS_DEFAULT=JSENGINE TESSERACT UNPACK
