@@ -27,20 +27,15 @@ load_rc_config $name
 : ${pyload_config:="%%PREFIX%%/etc/${name}"}
 : ${pyload_pid:="/var/run/${name}.pid"}
 
+required_files=${pyload_config}/pyload.conf
 pidfile=${pyload_pid}
+
 command_interpreter=%%PREFIX%%/bin/python
 command=%%PREFIX%%/bin/${name}
 command_args="--pidfile=${pidfile} --configdir=${pyload_config}"
 command_full="${command_interpreter} ${command} ${command_args}"
 
-#start_precmd="[ ! -f ${pyload_config}/pyload.conf ] && ${command_full} --setup"
-start_cmd="${name}_start"
-#${command_full} ${pyload_flags}"
+start_cmd="${command_full} ${pyload_flags}"
 stop_cmd="${command_full} --quit"
-
-pyload_start() {
-	[ ! -f ${pyload_config}/pyload.conf ] && ${command_full} --setup
-	${command_full} ${pyload_flags}
-}
 
 run_rc_command "$1"

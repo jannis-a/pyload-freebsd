@@ -8,7 +8,9 @@ Optional settings in /etc/rc.conf:
 	pyload_flags="--daemon"
 	pyload_pid="/var/run/pyload.pid"
 
-If there's no configuration, the setup will be called first on start:
+If there's no configuration, pyload service wont start - run the setup first.
+You can specify the config dir during setup or with --configdir
+	pyload -s (--configdir=%%PREFIX%%/etc/pyload)
 	service pyload start
 
 ================================================================================
