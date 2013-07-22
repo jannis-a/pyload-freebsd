@@ -10,7 +10,9 @@ DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-0-g${GH_COMMIT}
 MAINTAINER=	mrhanky@unterschicht.tv
 COMMENT=	A lightweight one-click download manager written in python
 
-RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/database/py-sqlite3 \
+LICENSE=	GPLv3
+
+RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3 \
 		${PYTHON_SITELIBDIR}/curl:${PORTSDIR}/ftp/py-curl \
 		${PYTHON_SITELIBDIR}/django:${PORTSDIR}/www/py-django \
 		${PYTHON_SITELIBDIR}/PIL:${PORTSDIR}/graphics/py-imaging \
