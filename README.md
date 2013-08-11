@@ -31,7 +31,7 @@ I made this for my FreeNAS Jail. A rc.d script for auto starting pyLoad is inclu
 # pkg_add -r git
 ```
 
-2. __Clone my port repo to your ports tree and install it:__
+2. __Clone my port repo to your ports tree and install it (remember to activate COOKIES for ftp/curl !!!):__
 ```Shell
 # cd /usr/ports/www
 # git clone https://github.com/mrhanky17/pyload-freebsd.git pyload
