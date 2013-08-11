@@ -6,7 +6,7 @@ I made this for my FreeNAS Jail. A rc.d script for auto starting pyLoad is inclu
 
 * __Required ports or binary packages:__
   * database/py-sqlite3
-  * ftp/py-curl
+  * ftp/py-curl (__Important:__ when the config dialog for this port appears, activate cookies!)
   * graphics/py-imaging
   * lang/python
   * security/py-pycrypto
