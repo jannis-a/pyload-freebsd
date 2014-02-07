@@ -3,7 +3,7 @@
 
 PORTNAME=	pyload
 PORTVERSION=	0.4.9
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	GH
 DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-0-g${GH_COMMIT}
@@ -23,7 +23,7 @@ RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-s
 USE_GITHUB=	yes
 GH_ACCOUNT=	pyload
 GH_PROJECT=	pyload
-GH_COMMIT=	6632445
+GH_COMMIT=	c297f27
 GH_TAGNAME=	${GH_COMMIT}
 
 NO_STAGE=	yes
@@ -31,17 +31,18 @@ NO_BUILD=	yes
 USE_GETTEXT=	yes
 USE_PYTHON=	yes
 USE_SQLITE3=	yes
+#NO_WRKSUBDIR=	yes
 
 USE_RC_SUBR=	pyload
 SUB_FILES=	pkg-message
 BINARY_DIR=	${PREFIX}/bin
-INSTALL_DIR=	${PREFIX}/www/${PORTNAME}
+INSTALL_DIR=	${PREFIX}/share/${PORTNAME}
 
 OPTIONS_DEFINE=	JSENGINE OPENSSL TESSERACT UNPACK
 OPTIONS_DEFAULT=JSENGINE TESSERACT UNPACK
 JSENGINE_DESC=	Install spidermonkey JS engine for Click'n'load
 TESSERACT_DESC=	Image recognition provided by gocr and tesseract
-UNPACK_DESC=	Install unrar and unzip to unpack downloads
+UNPACK_DESC=	Install binaries for extracting .rar and .zip files
 
 .include <bsd.port.options.mk>
 
