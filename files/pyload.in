@@ -30,7 +30,7 @@ load_rc_config $name
 required_files=${pyload_config}/pyload.conf
 pidfile=${pyload_pid}
 
-command_interpreter=%%PREFIX%%/bin/python
+command_interpreter=%%PREFIX%%/bin/python2
 command=%%PREFIX%%/bin/${name}
 command_args="--pidfile=${pidfile} --configdir=${pyload_config}"
 command_full="${command_interpreter} ${command} ${command_args}"

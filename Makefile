@@ -26,12 +26,10 @@ GH_PROJECT=	pyload
 GH_COMMIT=	c297f27
 GH_TAGNAME=	${GH_COMMIT}
 
-NO_STAGE=	yes
 NO_BUILD=	yes
-USE_GETTEXT=	yes
-USE_PYTHON=	yes
+USES=gettext
+USES=python
 USE_SQLITE3=	yes
-#NO_WRKSUBDIR=	yes
 
 USE_RC_SUBR=	pyload
 SUB_FILES=	pkg-message
@@ -68,14 +66,14 @@ RUN_DEPENDS+=	unrar>0:${PORTSDIR}/archivers/unrar \
 .endif
 
 do-install:
-	${MKDIR} ${INSTALL_DIR}
-	(cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${INSTALL_DIR})
-	${LN} -fs ${INSTALL_DIR}/pyLoadCore.py ${BINARY_DIR}/pyload
-	${LN} -fs ${INSTALL_DIR}/pyLoadCli.py ${BINARY_DIR}/pyload-cli
-	${LN} -fs ${INSTALL_DIR}/pyLoadGui.py ${BINARY_DIR}/pyload-gui
-	(cd ${BINARY_DIR} && ${CHMOD} +x pyload pyload-cli pyload-gui)
+	${MKDIR} ${STAGEDIR}${INSTALL_DIR}
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${STAGEDIR}${INSTALL_DIR})
+	${LN} -fs ${PREFIX}/share/pyload/pyLoadCore.py ${STAGEDIR}${BINARY_DIR}/pyload
+	${LN} -fs ${PREFIX}/share/pyload/pyLoadCli.py ${STAGEDIR}${BINARY_DIR}/pyload-cli
+	${LN} -fs ${PREFIX}/share/pyload/pyLoadGui.py ${STAGEDIR}${BINARY_DIR}/pyload-gui
 
 post-install:
-	@${CAT} ${WRKDIR}/pkg-message
-
+	(cd ${STAGEDIR}${PREFIX} \
+	            && ${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
+	                        -d ${PYTHONPREFIX_SITELIBDIR} -f ${PYTHONPREFIX_SITELIBDIR:S;${PREFIX}/;;})
 .include <bsd.port.mk>
