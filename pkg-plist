@@ -1,7 +1,9 @@
+@mode 755
 bin/pyload
 bin/pyload-cli
 bin/pyload-gui
 etc/rc.d/pyload
+@mode 644
 share/pyload/LICENSE
 share/pyload/README
 share/pyload/docs/Makefile

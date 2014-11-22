@@ -2,7 +2,7 @@
 +++ pyLoadCore.py	2013-07-16 18:23:41.000000000 +0200
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env python
-+#!/usr/local/bin/python
++#!/usr/local/bin/python2
  # -*- coding: utf-8 -*-
  """
      This program is free software; you can redistribute it and/or modify
@@ -11,6 +11,6 @@
          f.write(str(pid))
          f.close()
 +        os.chmod(self.pidfile, 0660)
- 
+
      def deletePidFile(self):
          if self.checkPidFile():
