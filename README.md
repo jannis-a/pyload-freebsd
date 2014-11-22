@@ -5,7 +5,7 @@ This is a FreeBSD port for the current stable version (0.4.9) of pyLoad.
 I made this for my FreeNAS Jail. A rc.d script for auto starting pyLoad is included.
 
 * __Required ports or binary packages:__
-  * database/py-sqlite3
+  * databases/py-sqlite3
   * ftp/py-curl (activate COOKIES on the configure dialog!)
   * graphics/py-imaging
   * lang/python
@@ -41,6 +41,7 @@ I made this for my FreeNAS Jail. A rc.d script for auto starting pyLoad is inclu
 3. __Enable and run pyLoad (if no pyload.conf exists, setup will be called first):__
 ```Shell
 # echo 'pyload_enable="YES"' >> /etc/rc.conf
+# touch /usr/local/etc/pyload/pyload.conf
 # service pyload start
 ```
 
