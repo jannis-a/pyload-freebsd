@@ -23,8 +23,7 @@ RUN_DEPENDS=	${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so:${PORTSDIR}/databases/py-s
 USE_GITHUB=	yes
 GH_ACCOUNT=	pyload
 GH_PROJECT=	pyload
-GH_COMMIT=	c297f27
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	58de8f805b4a7303674d5d3c9aa9b58dcef30f03
 
 NO_BUILD=	yes
 USES=gettext
