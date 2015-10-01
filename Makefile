@@ -6,7 +6,7 @@ PORTVERSION=	0.4.9
 PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	GH
-DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-0-g${GH_COMMIT}
+DISTNAME=	${GH_ACCOUNT}-${GH_PROJECT}-${PORTVERSION}-${GH_TAGNAME}${GH_COMMIT}
 
 MAINTAINER=	mrhanky@unterschicht.tv
 COMMENT=	A lightweight one-click download manager written in python
